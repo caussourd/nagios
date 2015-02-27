@@ -26,6 +26,10 @@ apache_site '000-default' do
 end
 
 apache_module 'cgi'
+apache_module 'mpm_event' do
+  enable false
+end
+apache_module 'mpm_prefork'
 
 template "#{node['apache']['dir']}/sites-available/#{node['nagios']['server']['vname']}.conf" do
   source 'apache2.conf.erb'
