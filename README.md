@@ -1,3 +1,42 @@
+this branch
+===========
+
+This branch has been created to be able to run the cookbook on OpsWorks. I assumed we were using the Apache webserver. The main issue with Opsworks is the name conflict (when you mentions `apache2` in the dependencies, it will use the Opsworks apache2 recipe https://github.com/aws/opsworks-cookbooks/tree/release-chef-11.10/apache2 and not the community recipe). See https://github.com/aws/opsworks-cookbooks/issues/217
+
+### Other modifications: 
+
+ - get the `tags` to create the nagios groups
+ - use the `private_ip` instead of `ipaddress` (public IP) when creating the hosts
+
+### Concerning the databags:
+
+Example of databags in Opsworks (to add in your stack custom JSON):
+```
+{
+   "opsworks": {
+       "data_bags": {
+           "users": {
+               "nagiosadmin" : {
+                   "id": "nagiosadmin",
+                   "groups": "sysadmin",
+                   "htpasswd": "{SHA}your_SHA",
+                   "nagios": {
+                       "email": "your_email"
+                   }
+               }
+           },
+           "nagios_services" : {
+               "check_host_alive" : {
+                   "id": "check_host_alive",
+                    "hostgroup_name": "all",
+                    "use_existing_command": "check_host_alive"
+               }
+           }
+        }
+    }
+ }
+ ```
+
 nagios cookbook
 ===============
 [![Build Status](https://secure.travis-ci.org/tas50/nagios.svg?branch=master)](http://travis-ci.org/tas50/nagios)
