@@ -265,7 +265,8 @@ class Nagios
   end
 
   def get_groups(obj)
-    groups = obj['roles'].nil? ? [] : obj['roles'].dup
+    groups = obj['tags'].nil? ? [] : obj['tags'].dup
+    groups += obj['roles'].nil? ? [] : obj['roles'].dup
     groups += [obj['os']] unless blank?(obj['os'])
     groups + [obj.chef_environment]
   end
@@ -285,7 +286,7 @@ class Nagios
 
     host = find(Nagios::Host.new(hostname))
     # TODO: merge the ip_to_monitor funtion into this logic here
-    host.address = obj['ipaddress']
+    host.address = obj['private_ip']
     host.import(obj['nagios']) unless obj['nagios'].nil?
 
     groups.each do |r|
