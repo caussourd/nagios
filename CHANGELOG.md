@@ -1,6 +1,30 @@
 nagios Cookbook CHANGELOG
 =========================
 This file is used to list changes made in each version of the nagios cookbook.
+7.0.6
+-----
+### Bug
+- Fixed data bag import.(#346)
+- Fixed missing create method on Servicegroup object. (#348)
+- Fixed update_dependency_members for depedency objects.
+
+7.0.4
+-----
+### Bug
+- Fixed the order for resource.cfg population to be correct.
+
+7.0.2
+-----
+### Bug
+- Fixed the hardcoded cgi-bin path in server source.
+- Fixed contact_groups within load_default_config recipe.
+- Removed dead code from timeperiod.rb library.
+- Ignore timeperiods that don't comply.
+- Making time formats less restrictive. (#336)
+
+### Improvement
+- Make yum-epel recipe include optional via attribute.
+- Only allow_empty_hostgroup_assignment for Nagios versions >= 3.4.0
 
 7.0.0
 -----
